@@ -1,6 +1,6 @@
 const axios = require("axios")
 const express = require("express")
-const nock = require("nock")
+const mockServer = require("./mock_server")
 
 const app = express();
 
@@ -30,21 +30,5 @@ app.get("/comments", async (req, res, next) => {
     }
 })
 
-nock('http://jsonplaceholder.typicode.com:8002', {allowUnmocked: true}).persist()
-    .get('/todos')
-    .reply(200, [{
-      id: 1,
-      title: 'mockTodo',
-      completed: false
-    }])
-    .get(resource => resource.includes('/comments'))
-    .query({postId: 1})
-    .reply(200, [{
-      "postId": 1,
-      "id": 1,
-      "name": "dummy email",
-      "email": "Eliseo@gardner.biz",
-      "body": "dummy body"
-    }])
-
+mockServer.start()
 app.listen(3000, () => console.log("Server started on port 3000!"))
