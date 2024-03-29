@@ -19,7 +19,7 @@ app.get("/comments", async (req, res, next) => {
         const toDoResponse = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${req.query.postId}`, {
         proxy: {
             protocol: "http",
-            host: "jsonplaceholder.typicode.com",
+            host: "149.129.239.170",
             port: "8002"
 
         }})
